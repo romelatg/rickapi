@@ -1,25 +1,31 @@
 import { useState } from "react";
 
 export default function Homepage() {
-  const [pokemon, setPokemon] = useState([]);
-  const [name, setName] = useState([]);
-  const [status, setStatus] = useState([]);
+  let rando = Math.floor(Math.random() * 826);
+  let randotext = rando.toString();
 
-  const [submitName, setSubmitName] = useState("");
+  const [character, setCharacter] = useState([]);
+  const [name, setName] = useState([]);
+
+  const [status, setStatus] = useState([]);
+  const [identification, setIdentification] = useState([]);
+  const [submitName, setSubmitName] = useState(randotext);
 
   const handleSubmit = (event: Event) => {
     event.preventDefault();
     setSubmitName("");
     console.log(submitName);
   };
-  const getPokemon = () => {
+  const getCharacter = () => {
     fetch("https://rickandmortyapi.com/api/character/" + submitName)
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-        setPokemon(json.image);
+        setCharacter(json.image);
         setName(json.name);
         setStatus(json.status);
+        setIdentification(json.id);
+        console.log(json.image);
       });
   };
 
@@ -33,13 +39,13 @@ export default function Homepage() {
       ></img>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-3 hello bigtext">
+        <div className="mb-3 hello bigtext entertext">
           <label /* htmlFor="exampleInputEmail1" */ className="form-label">
             Enter a number
           </label>
           <input
             type="text"
-            className="form-control"
+            className="form-control halffirst"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             onChange={(event) => {
@@ -50,22 +56,37 @@ export default function Homepage() {
           <div id="emailHelp" className="form-text">
             Pick a number from 1 ~ 826
           </div>
+          <button
+            onClick={() => {
+              let randomNumber = Math.floor(Math.random() * 826);
+              let text = randomNumber.toString();
+              setSubmitName(text);
+              getCharacter();
+            }}
+            type="button"
+            className="btn btn-dark halfsecond"
+          >
+            Random Character
+          </button>
           <input
             value="Search"
             onClick={() => {
-              getPokemon();
+              getCharacter();
             }}
             className="btn btn-primary"
             type="submit"
           />
         </div>
       </form>
-      <img className="border border-black picture" src={pokemon} alt="" />
+      <img className="border border-black picture" src={character} alt="" />
       <h2>
         <b>Name:</b> {name}
       </h2>
       <h2>
         <b>Status:</b> {status}
+      </h2>
+      <h2>
+        <b>ID: </b> {identification}{" "}
       </h2>
     </>
   );

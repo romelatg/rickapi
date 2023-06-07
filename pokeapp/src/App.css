@@ -8,7 +8,7 @@ img{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 20rem;
+  width: 16rem;
 }
 
 *{
@@ -39,5 +39,19 @@ h2{
 .picture{
   padding: .2rem;
   border: black;
+  background-image:url('https://rickandmortyapi.com/api/character/avatar/189.jpeg');
+  width: 300px;
+  height: 300px;
+
   
 }
+
+.halffirst{
+
+}
+
+.halfsecond{
+
+}
+
+.entertext{}
