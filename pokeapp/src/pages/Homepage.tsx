@@ -4,17 +4,16 @@ export default function Homepage() {
   let rando = Math.floor(Math.random() * 826);
   let randotext = rando.toString();
 
-  const [character, setCharacter] = useState([]);
+  const [character, setCharacter] = useState();
   const [name, setName] = useState([]);
 
   const [status, setStatus] = useState([]);
   const [identification, setIdentification] = useState([]);
   const [submitName, setSubmitName] = useState(randotext);
 
-  const handleSubmit = (event: Event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
-    setSubmitName("");
-    console.log(submitName);
+    /* setSubmitName(""); */
   };
   const getCharacter = () => {
     fetch("https://rickandmortyapi.com/api/character/" + submitName)
@@ -25,7 +24,6 @@ export default function Homepage() {
         setName(json.name);
         setStatus(json.status);
         setIdentification(json.id);
-        console.log(json.image);
       });
   };
 
@@ -39,13 +37,13 @@ export default function Homepage() {
       ></img>
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-3 hello bigtext entertext">
+        <div className="mb-3 hello bigtext">
           <label /* htmlFor="exampleInputEmail1" */ className="form-label">
             Enter a number
           </label>
           <input
             type="text"
-            className="form-control halffirst"
+            className="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
             onChange={(event) => {
@@ -64,7 +62,7 @@ export default function Homepage() {
               getCharacter();
             }}
             type="button"
-            className="btn btn-dark halfsecond"
+            className="btn btn-dark"
           >
             Random Character
           </button>
